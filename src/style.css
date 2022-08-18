@@ -17,16 +17,20 @@ h1, h2, h3, blockquote {
   font-weight: bold;
 }
 
+body{
+  
+  z-index: 0
+}
+
 main {
   width: 100vw;
-  color: rgba(255,255,255, 0.9);
   z-index: 99;
   position: absolute;
-  width: 100%;
   padding: 10vh 2vw;
   
   display: grid;
   grid-template-columns: 2fr 6fr 2fr;
+  color: rgba(255,255,255, 0.9);
 }
 
 header {
@@ -35,8 +39,12 @@ header {
   text-align: center;
   grid-column: 2;
   font-size: 2.5rem;
-  margin-bottom: 40vh;
+  margin-bottom: 35vh;
+
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
+
 
 section {
   grid-column: 2;
@@ -45,19 +53,48 @@ section {
   font-size: 1.25rem;
   line-height: 1.5;
   margin-bottom: 15vh;
+
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 3%;
+  grid-row-gap: 3%;
+}
+
+.project-item {
+  padding: 2rem;
+  background-color: rgba(20, 48, 84,0.5);
+  border-radius: 15px;
+
+  transition: all .2s ease-in-out;
+}
+
+.project-item:hover {
+  transform: scale(1.03);
+}
+
+iframe {
+  max-width: 100%;
 }
 
 blockquote {
   grid-column: 2;
-  margin: auto;
-  width: 70%;
+  width: 90%;
+  margin: 0 auto;
   margin-bottom: var(--spacing);
 }
 
 blockquote p {
   background: var(--dark-bg);
-  font-size: 4rem;
+  font-size: 4em;
   padding: 2rem;
   text-align: center;
   line-height: 1;
+  border-radius: 15px;
+
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }

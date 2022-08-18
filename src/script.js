@@ -7,10 +7,34 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as dat from 'dat.gui'
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x4fadf0)
+// scene.background = new THREE.Color(0x4fadf0)
+
+const bgTexture = new THREE.TextureLoader().load(
+  'bg2.jpg',
+  (texture) => {
+    scene.background = texture;
+  }
+)
+
+function addStar() {
+  const geometry = new THREE.DodecahedronGeometry(0.1);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  material.emissive = new THREE.Color(0xffffff)
+  material.emissiveIntensity = 10
+  const star = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+
+Array(400).fill().forEach(addStar);
 
 // Texture Stuff
-const loadingManager = new  THREE.LoadingManager()
+// const loadingManager = new  THREE.LoadingManager()
 
 // loadingManager.onStart = () => {
 //   console.log('onStart')
@@ -68,33 +92,33 @@ const loadingManager = new  THREE.LoadingManager()
 // image.src = '/textures/door/color.jpg'
 
 
-const fontLoader = new THREE.FontLoader()
-fontLoader.load(
-  'fonts/helvetiker_regular.typeface.json',
-  (font) => {
-    const textGeometry = new THREE.TextBufferGeometry(
-      'Hello World',
-      {
-        font: font,
-        size: 0.5,
-        height: 0.2,
-        curveSegments: 6,
-        bevelEnabled: true,
-        bevelThickness: 0.03,
-        bevelSize: 0.02, 
-        bevelOffset: 0,
-        bevelSegments: 3
-      }
-    )
-    textGeometry.computeBoundingBox()
-    console.log(textGeometry.boundingBox)
-    const textMaterial = new THREE.MeshBasicMaterial()
-    textMaterial.wireframe = true
-    const text = new THREE.Mesh(textGeometry, textMaterial)
+// const fontLoader = new THREE.FontLoader()
+// fontLoader.load(
+//   'fonts/helvetiker_regular.typeface.json',
+//   (font) => {
+//     const textGeometry = new THREE.TextBufferGeometry(
+//       'Hello World',
+//       {
+//         font: font,
+//         size: 0.5,
+//         height: 0.2,
+//         curveSegments: 6,
+//         bevelEnabled: true,
+//         bevelThickness: 0.03,
+//         bevelSize: 0.02, 
+//         bevelOffset: 0,
+//         bevelSegments: 3
+//       }
+//     )
+//     textGeometry.computeBoundingBox()
+//     console.log(textGeometry.boundingBox)
+//     const textMaterial = new THREE.MeshBasicMaterial()
+//     textMaterial.wireframe = true
+//     const text = new THREE.Mesh(textGeometry, textMaterial)
     // scene.add(text)
     // console.log(font)
-  }
-)
+//   }
+// )
 
 let gltfModel
 const gltfLoader = new GLTFLoader();
@@ -102,6 +126,7 @@ gltfLoader.load(
   'dinoProfile.glb',
   (gltf) => {
     gltfModel = gltf.scene
+    gltfModel.rotation.y = (75 * Math.PI) / 180
     scene.add(gltf.scene)
 
     gltf.scene.traverse(function (child) {
@@ -113,6 +138,15 @@ gltfLoader.load(
     })
   }
 )
+
+// function moveCamera() {
+//   const t = document.body.getBoundingClientRect().top;
+//   if(gltfModel) {
+//     gltfModel.rotation.y += 0.1;
+//   }
+// }
+
+// document.body.onscroll = moveCamera
 
 // const parameters = {
 //   color: 0xff0000,
@@ -325,10 +359,8 @@ document.addEventListener('mousemove', (event) => {
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height)
 camera.position.z = 6
-camera.position.y = 2
+camera.position.y = 1.5
 
-// camera.position.y = 0.5
-// camera.position.x = 0.5
 scene.add(camera)
 
 const canvas = document.querySelector('canvas.webgl')
@@ -339,6 +371,7 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
+// renderer.setClearColor()
 
 // let prevFrameTime = Date.now()
 
@@ -374,14 +407,18 @@ const tick = () => {
   // camera.position.z = Math.cos(cursor.x * 2 * Math.PI) * 3 + Math.cos(cursor.y * Math.PI) * 3
   // camera.position.y = Math.sin(cursor.y * Math.PI) * 3
   // camera.position.z = Math.cos(cursor.y * Math.PI) * 3
-  // camera.lookAt(mesh.position)
+  // camera.lookAt(gltfModel.position)
 
-  sphere.rotation.y = 0.5 * elapsedTime
+  // sphere.rotation.y = 0.5 * elapsedTime
   // plane.rotation.y = 0.5 * elapsedTime  
-  torus.rotation.y = 0.5 * elapsedTime
+  // torus.rotation.y = 0.5 * elapsedTime
 
   if(gltfModel) {
     gltfModel.rotation.y = 0.5 * elapsedTime
+    // const t = document.body.getBoundingClientRect().top;
+    // gltfModel.rotation.y = t * 2 * Math.PI
+
+    // gsap.to(mesh.rotation, {duration: 1, y: mesh.rotation.y + Math.PI * 2})
   }
 
   // controls.update()
