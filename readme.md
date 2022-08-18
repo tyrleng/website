@@ -1,16 +1,5 @@
-# Three.js Journey
+# Yih Reng's Personal Site.  
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+Please don't steal my dino haha.  
 
-``` bash
-# Install dependencies (only the first time)
-npm install
-
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
+I apologise for any shitty code, web dev isn't my forte right now. &#x1F92A  
