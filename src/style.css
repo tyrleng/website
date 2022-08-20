@@ -83,7 +83,7 @@ iframe {
 
 blockquote {
   grid-column: 2;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   margin-bottom: var(--spacing);
 }
@@ -97,4 +97,20 @@ blockquote p {
   border-radius: 15px;
 
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.footer {
+	background-color: #5b5a5a;
+	color: #ffffff;
+  opacity: 0.8;
+	/* padding: 15px; */
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+  font-size: 0.8rem;
+	text-align: center;
+}
+
+.footer a {
+  color: #ffffff;
 }
