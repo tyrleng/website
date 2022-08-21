@@ -90,7 +90,7 @@ blockquote {
 
 blockquote p {
   background: var(--dark-bg);
-  font-size: 4em;
+  font-size: 3.5em;
   padding: 2rem;
   text-align: center;
   line-height: 1;
